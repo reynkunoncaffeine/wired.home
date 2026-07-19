@@ -6,7 +6,7 @@
     <link rel="icon" href="https://avatarfiles.alphacoders.com/105/thumb-1920-105490.gif">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <title>wired/home</title>
     <style>
         body {
@@ -14,7 +14,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            font-family: 'Courier', monospace;
+            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             min-height: 100vh;
             display: flex;
@@ -132,7 +132,7 @@
             if (i < text.length) {
                 el.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeChar, 100); // typing speed in ms
+                setTimeout(typeChar, 100);
             } else {
                 el.innerHTML += '<span class="cursor">_</span>';
             }
@@ -173,7 +173,7 @@
 
             setTimeout(() => {
                 el.childNodes[0].textContent = originalText;
-            }, 100); // how long the glitch shows before reverting
+            }, 100);
         }
 
         setInterval(glitchOnce, 1000);
