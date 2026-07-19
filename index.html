@@ -10,7 +10,7 @@
     <title>wired/home</title>
     <style>
         body {
-            background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fd7%2F64%2F84%2Fd76484f755763b87d45ec9c56e21b37c.gif&f=1&nofb=1&ipt=5ed37c21bcf32a5732439550fbaadf8e6ad2ea0ba35199f6067e71865419b546);
+            background-image: url(https://i.pinimg.com/originals/d7/64/84/d76484f755763b87d45ec9c56e21b37c.gif);
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -86,13 +86,20 @@
             margin: 40px auto;
         }
     }
+    .cursor {
+        animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
 
     </style>
 </head>
 <body>
     <div class="con">
         <div class="header">
-            <h1 style="font-size: 3em;">>wired/home</h1>
+            <p id="clock" style="font-size: 0.9em; opacity: 0.7; margin-top: -10px;"></p>
+            <h1 style="font-size: 3em;" id="typing-heading"></h1>
             <p style="text-align: left;">err... hi. i'm a delulu cs undergrad with 14hrs of screentime and a strict diet of caffeine, sucrose(and/or fructose) and pessimism. i live most of my life on the wired, you can find me here:</p>
         </div>
         <div class="links_con">
@@ -116,5 +123,60 @@
             </div>
         </div>
     </div>
+    <script>
+        const text = ">wired/home";
+        const el = document.getElementById("typing-heading");
+        let i = 0;
+
+        function typeChar() {
+            if (i < text.length) {
+                el.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeChar, 100); // typing speed in ms
+            } else {
+                el.innerHTML += '<span class="cursor">_</span>';
+            }
+        }
+        
+
+        typeChar();
+        const originalTitle = document.title;
+        const awayTitle = "come back...";
+
+        document.addEventListener("visibilitychange", () => {
+            document.title = document.hidden ? awayTitle : originalTitle;
+        });
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+
+        const glitchChars = "!<>-_\\/—=+*^?#________";
+        const originalText = ">wired/home";
+
+        function glitchOnce() {
+            const el = document.getElementById("typing-heading");
+            if (!el || el.textContent.length < originalText.length) return;
+
+            const pos = Math.floor(Math.random() * originalText.length);
+            const glitchedChar = glitchChars.charAt(Math.floor(Math.random() * glitchChars.length));
+
+            const chars = originalText.split("");
+            chars[pos] = glitchedChar;
+            el.childNodes[0].textContent = chars.join("");
+
+            setTimeout(() => {
+                el.childNodes[0].textContent = originalText;
+            }, 100); // how long the glitch shows before reverting
+        }
+
+        setInterval(glitchOnce, 1000);
+    </script>
 </body>
 </html>
